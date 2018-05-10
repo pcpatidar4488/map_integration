@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 public class MainActivity extends Activity {
     private MapView mapView;
@@ -12,10 +16,20 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mapbox.getInstance(this, "pk.eyJ1IjoicGNwYXRpZGFyIiwiYSI6ImNqZ2FnODkxdzQwanMycW1veXkxdzNhbnQifQ.ccjlGaCc3ZRSKKirRgKyPQ");
+        Mapbox.getInstance(this, getString(R.string.access_token));
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(MapboxMap mapboxMap) {
+                mapboxMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(48.13863, 11.57603))
+                        .title(getString(R.string.draw_marker_options_title))
+                        .snippet(getString(R.string.draw_marker_options_snippet))
+                .setIcon();
+            }
+        });
     }
 
     @Override
