@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -23,11 +25,13 @@ public class MainActivity extends Activity {
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
+                IconFactory iconFactory = IconFactory.getInstance(MainActivity.this);
+                Icon icon = iconFactory.fromResource(R.drawable.mapbox_logo_icon);
                 mapboxMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(48.13863, 11.57603))
+                        .position(new LatLng(28.13863, 77.57603))
                         .title(getString(R.string.draw_marker_options_title))
                         .snippet(getString(R.string.draw_marker_options_snippet))
-                .setIcon();
+                .setIcon(icon));
             }
         });
     }
